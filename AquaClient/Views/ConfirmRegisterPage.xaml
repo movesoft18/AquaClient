@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AquaClient.Views.ConfirmRegisterPage"
+             Title="Подтверждение регистрации">
+    <ScrollView>
+        <Grid RowDefinitions="Auto, *, Auto"
+              RowSpacing="40"
+              Padding="30, 60, 30, 30">
+
+            <!-- Заголовок приложения -->
+            <Label Text="Вам на почту отправлен код подтверждения. необходимо его ввести в поле ниже"
+                   HorizontalTextAlignment="Center"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#512BD4"
+                   Grid.Row="0"/>
+
+            <!-- Форма входа -->
+            <VerticalStackLayout Spacing="0" Grid.Row="1">
+
+                <!-- Контейнер для полей ввода с Border -->
+                <Border Stroke="#E0E0E0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12"
+                        BackgroundColor="White"
+                        Padding="0">
+
+                    <!-- Поле URI -->
+                    <VerticalStackLayout Padding="0, 15" Spacing="5" HorizontalOptions="Center">
+                        <Label Text="Код подтверждения" 
+                                   HorizontalTextAlignment="Center"
+                                   FontSize="14" 
+                                   TextColor="Gray"/>
+                        <Entry x:Name="confirmCodeEntry"
+                                   Text="{Binding Code}"
+                                   IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                                   Placeholder="123456"
+                                   Keyboard="Numeric"
+                                   ClearButtonVisibility="WhileEditing"
+                                   TextColor="Gray"
+                                   MaxLength="6"
+                                   FontSize="48"/>
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5" Grid.Row="2">
+
+                <!-- Кнопка Входа с Grid для индикатора -->
+                <Grid>
+                    <Button 
+                            Text="ОТПРАВИТЬ"
+                            IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                            CornerRadius="10"
+                            HeightRequest="52"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Command="{Binding ConfirmCommand}">
+                        <Button.Triggers>
+                            <Trigger TargetType="Button"
+                                 Property="IsEnabled"
+                                 Value="True">
+                                <Setter Property="BackgroundColor" Value="#512BD4"/>
+                                <Setter Property="TextColor" Value="White"/>
+                            </Trigger>
+
+                            <Trigger TargetType="Button"
+                                 Property="IsEnabled"
+                                 Value="False">
+                                <Setter Property="BackgroundColor" Value="#AAAAAA"/>
+                                <Setter Property="TextColor" Value="#666666"/>
+                            </Trigger>
+                        </Button.Triggers>
+                    </Button>
+                    
+                    <!-- Индикатор загрузки -->
+                    <ActivityIndicator x:Name="activityIndicator"
+                                       IsVisible="{Binding IsBusy}"
+                                       IsRunning="{Binding IsBusy}"
+                                       Color="#512BD4"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       WidthRequest="30"
+                                       HeightRequest="30"
+                                       Margin="0,0,0,0"/>
+                </Grid>
+                <Button 
+                        Text="ОТМЕНА"
+                        IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                        CornerRadius="10"
+                        HeightRequest="52"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        Command="{Binding CancelCommand}"/>
+            </VerticalStackLayout>
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

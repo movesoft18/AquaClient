@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AquaClient.Views.AquaControlPage"
+             xmlns:local="clr-namespace:AquaClient.Classes"
+             xmlns:converters="clr-namespace:AquaClient.Converters"
+             >
+
+    <ContentPage.Resources>
+        <!-- Шаблон 1: Image + Label + Button -->
+        <DataTemplate x:Key="ImageLabelSwitchTemplate">
+            <Grid ColumnDefinitions="Auto,*,Auto" 
+                  Padding="10"
+                  BackgroundColor="White">
+                <Image Grid.Column="0"
+                       Source="{Binding DeviceType, Converter={StaticResource DeviceTypeFilenameConverter}}"
+                       WidthRequest="40"
+                       HeightRequest="40"
+                       Aspect="AspectFill"/>
+
+                <Label Grid.Column="1"
+                       Text="{Binding DeviceName}"
+                       VerticalOptions="Center"
+                       TextColor="Gray"
+                       Margin="10,0"/>
+                <Button Grid.Column="2"
+                        Text="{Binding DeviceStatus, Converter={StaticResource StatusToButtonTextConverter}}"
+                        BackgroundColor="{Binding DeviceStatus, Converter={StaticResource StatusToButtonColorConverter}}"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, 
+                                    Path=BindingContext.UpdateStateCommand}"
+                        CommandParameter="{Binding DeviceId}"
+                    />
+                <!--<Switch Grid.Column="2"
+                        IsToggled="{Binding DeviceStatus,  Converter={StaticResource NumberBoolConverter}}"
+                        VerticalOptions="Center"/>-->
+            </Grid>
+        </DataTemplate>
+
+        <!-- Шаблон 2: Image + Label + Label -->
+        <DataTemplate x:Key="ImageLabelLabelTemplate">
+            <Grid ColumnDefinitions="Auto,*,Auto" 
+                  Padding="10"
+                  BackgroundColor="#F8F8F8">
+                <Image Grid.Column="0"
+                       Source="{Binding DeviceType, Converter={StaticResource DeviceTypeFilenameConverter}}"
+                       WidthRequest="40"
+                       HeightRequest="40"
+                       Aspect="AspectFill"/>
+
+                <Label Text="{Binding DeviceName}"
+                           Grid.Column="1"
+                           VerticalOptions="Center"
+                           TextColor="Gray"
+                           Margin="10,0"/>
+
+                <Label Text="{Binding DeviceStatus}"
+                           Grid.Column="2"
+                           FontSize="12"
+                           VerticalOptions="Center"
+                           HorizontalOptions="End"
+                           TextColor="Gray"/>
+            </Grid>
+        </DataTemplate>
+
+        <!-- Селектор шаблонов -->
+        <local:MultiTypeDataTemplateSelector 
+            x:Key="MultiTypeTemplateSelector"
+            ImageLabelSwitchTemplate="{StaticResource ImageLabelSwitchTemplate}"
+            ImageLabelLabelTemplate="{StaticResource ImageLabelLabelTemplate}"
+            />
+    </ContentPage.Resources>
+
+        <Grid x:Name ="pageGrid"
+              RowDefinitions="Auto, *, Auto"
+              RowSpacing="10"
+              Padding="20, 5, 20, 5">
+
+            <!-- Заголовок приложения -->
+            <Label Text="Доступные устройства"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#512BD4"
+                   Grid.Row="0"/>
+
+            <Border Grid.Row="1" Stroke="#E0E0E0"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 12"
+                                BackgroundColor="White"
+                                >
+                <CollectionView 
+                                ItemsSource="{Binding DevicesList}"
+                                ItemTemplate="{StaticResource MultiTypeTemplateSelector}"
+                                >
+                </CollectionView>
+            </Border>
+            <ActivityIndicator 
+                Grid.Row="1"
+                IsVisible="{Binding IsBusy}"
+                IsRunning="{Binding IsBusy}"
+                WidthRequest="80"
+                HeightRequest="80"
+                Color="Green"
+                />
+        <VerticalStackLayout Spacing="5" Grid.Row="2">
+
+            <!-- Кнопка Входа с Grid для индикатора -->
+                <Grid>
+                    <Button x:Name="loginButton"
+                            Text="ОБНОВИТЬ"
+                            IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                            CornerRadius="10"
+                            HeightRequest="52"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Command="{Binding RefreshDevicesListCommand}">
+                        <Button.Triggers>
+                            <Trigger TargetType="Button"
+                                 Property="IsEnabled"
+                                 Value="True">
+                                <Setter Property="BackgroundColor" Value="#512BD4"/>
+                                <Setter Property="TextColor" Value="White"/>
+                            </Trigger>
+
+                            <Trigger TargetType="Button"
+                                 Property="IsEnabled"
+                                 Value="False">
+                                <Setter Property="BackgroundColor" Value="#AAAAAA"/>
+                                <Setter Property="TextColor" Value="#666666"/>
+                            </Trigger>
+                        </Button.Triggers>
+                    </Button>
+                    <!-- Индикатор загрузки -->
+                    <ActivityIndicator x:Name="activityIndicator"
+                                       IsVisible="{Binding IsBusy}"
+                                       IsRunning="{Binding IsBusy}"
+                                       Color="#512BD4"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       WidthRequest="30"
+                                       HeightRequest="30"
+                                       Margin="0,0,0,0"/>
+                </Grid>
+            </VerticalStackLayout>
+
+        </Grid>
+
+</ContentPage>

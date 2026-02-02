@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AquaClient.Views.AboutPage"
+             Title="ProfilePage1"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+              RowSpacing="20"
+              Padding="20,40,20,20">
+
+            <!-- Profile Header -->
+            <Grid Grid.Row="0"
+                  RowDefinitions="Auto,Auto,Auto"
+                  RowSpacing="10"
+                  HorizontalOptions="Center">
+
+                <!-- Profile Image -->
+                <Ellipse Grid.Row="0"
+                         WidthRequest="100"
+                         HeightRequest="100"
+                         HorizontalOptions="Center">
+                    <Ellipse.Fill>
+                        <LinearGradientBrush StartPoint="0,0"
+                                             EndPoint="1,1">
+                            <GradientStop Color="#4A90E2" Offset="0.0"/>
+                            <GradientStop Color="#9013FE" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+
+                <!-- Initials (if no image) -->
+                <Label Grid.Row="0"
+                       Text="JM"
+                       FontSize="32"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+
+                <!-- Name -->
+                <Label Grid.Row="1"
+                       Text="James Martin"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"/>
+
+                <!-- Title -->
+                <Label Grid.Row="2"
+                       Text="Senior Graphic Designer"
+                       FontSize="16"
+                       TextColor="#666666"
+                       HorizontalOptions="Center"/>
+            </Grid>
+
+            <!-- Followers/Following Stats -->
+            <Grid Grid.Row="1"
+                  ColumnDefinitions="*,*"
+                  ColumnSpacing="20"
+                  HorizontalOptions="Center">
+
+                <!-- Followers -->
+                <StackLayout Grid.Column="0"
+                             HorizontalOptions="Center"
+                             Spacing="5">
+                    <Label Text="1000"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Followers"
+                           FontSize="14"
+                           TextColor="#666666"
+                           HorizontalOptions="Center"/>
+                </StackLayout>
+
+                <!-- Following -->
+                <StackLayout Grid.Column="1"
+                             HorizontalOptions="Center"
+                             Spacing="5">
+                    <Label Text="1200"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Following"
+                           FontSize="14"
+                           TextColor="#666666"
+                           HorizontalOptions="Center"/>
+                </StackLayout>
+            </Grid>
+
+            <!-- Contact Information Section -->
+            <Border Grid.Row="2"
+                    Stroke="#E0E0E0"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 10"
+                    BackgroundColor="White"
+                    Padding="15">
+
+                <VerticalStackLayout Spacing="15">
+
+                    <!-- Section Title -->
+                    <Label Text="Contact Information"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           Margin="0,0,0,5"/>
+
+                    <!-- Email -->
+                    <Grid ColumnDefinitions="Auto,*"
+                          ColumnSpacing="15"
+                          VerticalOptions="Center">
+                        <Label Grid.Column="0"
+                               Text="Email"
+                               FontSize="14"
+                               TextColor="#666666"
+                               WidthRequest="80"/>
+                        <Label Grid.Column="1"
+                               Text="james012@gmail.com"
+                               FontSize="16"/>
+                    </Grid>
+
+                    <!-- Mobile -->
+                    <Grid ColumnDefinitions="Auto,*"
+                          ColumnSpacing="15"
+                          VerticalOptions="Center">
+                        <Label Grid.Column="0"
+                               Text="Mobile"
+                               FontSize="14"
+                               TextColor="#666666"
+                               WidthRequest="80"/>
+                        <Label Grid.Column="1"
+                               Text="1234567891"
+                               FontSize="16"/>
+                    </Grid>
+
+                    <!-- Twitter -->
+                    <Grid ColumnDefinitions="Auto,*"
+                          ColumnSpacing="15"
+                          VerticalOptions="Center">
+                        <Label Grid.Column="0"
+                               Text="Twitter"
+                               FontSize="14"
+                               TextColor="#666666"
+                               WidthRequest="80"/>
+                        <Label Grid.Column="1"
+                               Text="@james012"
+                               FontSize="16"/>
+                    </Grid>
+
+                    <!-- Facebook -->
+                    <Grid ColumnDefinitions="Auto,*"
+                          ColumnSpacing="15"
+                          VerticalOptions="Center">
+                        <Label Grid.Column="0"
+                               Text="Facebook"
+                               FontSize="14"
+                               TextColor="#666666"
+                               WidthRequest="80"/>
+                        <Label Grid.Column="1"
+                               Text="www.facebook.com/james012"
+                               FontSize="16"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Action Buttons -->
+            <Grid Grid.Row="3"
+                  ColumnDefinitions="*,*"
+                  ColumnSpacing="15">
+
+                <!-- Message Button -->
+                <Button Grid.Column="0"
+                        Text="Message"
+                        BackgroundColor="#4A90E2"
+                        TextColor="White"
+                        FontSize="16"
+                        HeightRequest="50"
+                        CornerRadius="10"/>
+
+                <!-- Follow Button -->
+                <Button Grid.Column="1"
+                        Text="Follow"
+                        BackgroundColor="White"
+                        TextColor="#4A90E2"
+                        FontSize="16"
+                        HeightRequest="50"
+                        BorderColor="#4A90E2"
+                        BorderWidth="2"
+                        CornerRadius="10"/>
+            </Grid>
+
+            <!-- Additional Info (optional) -->
+            <StackLayout Grid.Row="4"
+                         Spacing="10">
+                <Label Text="About"
+                       FontSize="18"
+                       FontAttributes="Bold"/>
+                <Label Text="Senior Graphic Designer with 8+ years of experience specializing in branding, UI/UX design, and digital illustration."
+                       FontSize="14"
+                       TextColor="#666666"/>
+            </StackLayout>
+
+            <!-- Recent Work Section -->
+            <VerticalStackLayout Grid.Row="5"
+                                 Spacing="15">
+                <Label Text="Recent Work"
+                       FontSize="18"
+                       FontAttributes="Bold"/>
+
+                <ScrollView Orientation="Horizontal">
+                    <HorizontalStackLayout Spacing="10">
+                        <!-- Work Item 1 -->
+                        <Frame WidthRequest="120"
+                               HeightRequest="160"
+                               CornerRadius="10"
+                               HasShadow="True"
+                               Padding="0">
+                            <Image Source="work1_placeholder.jpg"
+                                   Aspect="AspectFill"/>
+                        </Frame>
+
+                        <!-- Work Item 2 -->
+                        <Frame WidthRequest="120"
+                               HeightRequest="160"
+                               CornerRadius="10"
+                               HasShadow="True"
+                               Padding="0">
+                            <Image Source="work2_placeholder.jpg"
+                                   Aspect="AspectFill"/>
+                        </Frame>
+
+                        <!-- Work Item 3 -->
+                        <Frame WidthRequest="120"
+                               HeightRequest="160"
+                               CornerRadius="10"
+                               HasShadow="True"
+                               Padding="0">
+                            <Image Source="work3_placeholder.jpg"
+                                   Aspect="AspectFill"/>
+                        </Frame>
+                    </HorizontalStackLayout>
+                </ScrollView>
+            </VerticalStackLayout>
+
+        </Grid>
+    </ScrollView>
+
+</ContentPage>    

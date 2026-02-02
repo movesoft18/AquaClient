@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:AquaClient.Converters"
+             x:Class="AquaClient.Views.RegisterPage"
+             Title="Страница регистрации">
+    <ScrollView>
+        <Grid RowDefinitions="Auto, *, Auto"
+              RowSpacing="40"
+              Padding="30, 10, 30, 30">
+
+            <!-- Заголовок приложения -->
+            <Label Text="Регистрация аккаунта"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#512BD4"
+                   Grid.Row="0"/>
+
+            <!-- Форма входа -->
+            <VerticalStackLayout Spacing="20" Grid.Row="1">
+
+                <!-- Контейнер для полей ввода с Border -->
+                <Border Stroke="#E0E0E0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12"
+                        BackgroundColor="White"
+                        Padding="0">
+
+                    <VerticalStackLayout Spacing="0">
+
+                        <!-- Поле телефон -->
+                        <VerticalStackLayout Padding="20, 10" Spacing="5">
+                            <Label Text="Телефон*" 
+                                   FontSize="14" 
+                                   TextColor="Gray"/>
+                            <Entry x:Name="phoneEntry"
+                                   Text="{Binding Phone}"
+                                   Placeholder="+79991234567"
+                                   Keyboard="Telephone"
+                                   ClearButtonVisibility="WhileEditing"
+                                   TextColor="Gray"
+                                   FontSize="16"/>
+                            <Label Text="Неверный формат телефона"
+                               TextColor="Red"
+                               FontSize="12"
+                               IsVisible="{Binding IsValidPhone, Converter={StaticResource InverseBoolConverter}}"/>
+                        </VerticalStackLayout>
+
+                        <!-- Разделитель между полями -->
+                        <BoxView HeightRequest="1" 
+                                 BackgroundColor="#EEEEEE"/>
+
+                        <!-- Поле Email -->
+                        <VerticalStackLayout Padding="20, 10" Spacing="5">
+                            <Label Text="Email*" 
+                                   FontSize="14" 
+                                   TextColor="Gray"/>
+                            <Entry x:Name="emailEntry"
+                                   Placeholder="Введите ваш E-mail*"
+                                   Text="{Binding Email}"
+                                   ClearButtonVisibility="WhileEditing"
+                                   TextColor="Gray"
+                                   FontSize="16"/>
+                            <Label Text="Неверный формат email"
+                               TextColor="Red"
+                               FontSize="12"
+                               IsVisible="{Binding IsValidEmail, Converter={StaticResource InverseBoolConverter}}"/>
+                        </VerticalStackLayout>
+
+                        <!-- Разделитель между полями -->
+                        <BoxView HeightRequest="1" 
+                                 BackgroundColor="#EEEEEE"/>
+
+                        <!-- Поле Surname -->
+                        <VerticalStackLayout Padding="20, 10" Spacing="5">
+                            <Label Text="Фамилия" 
+                                   FontSize="14" 
+                                   TextColor="Gray"/>
+                            <Entry x:Name="surnameEntry"
+                                   Placeholder="Введите фамилию"
+                                   Text="{Binding Surname}"
+                                   ClearButtonVisibility="WhileEditing"
+                                   TextColor="Gray"
+                                   FontSize="16"/>
+                        </VerticalStackLayout>
+                        
+                        <!-- Разделитель между полями -->
+                        <BoxView HeightRequest="1" 
+                                 BackgroundColor="#EEEEEE"/>
+
+                        <!-- Поле Name -->
+                        <VerticalStackLayout Padding="20, 10" Spacing="5">
+                            <Label Text="Имя*" 
+                                   FontSize="14" 
+                                   TextColor="Gray"/>
+                            <Entry x:Name="firstnameEntry"
+                                   Placeholder="Введите ваше имя*"
+                                   Text="{Binding Firstname}"
+                                   ClearButtonVisibility="WhileEditing"
+                                   TextColor="Gray"
+                                   FontSize="16"/>
+                            <Label Text="Имя не должно быть пустым и состоять из букв"
+                               TextColor="Red"
+                               FontSize="12"
+                               IsVisible="{Binding IsValidName, Converter={StaticResource InverseBoolConverter}}"/>
+                        </VerticalStackLayout>
+
+                        <!-- Разделитель между полями -->
+                        <BoxView HeightRequest="1" 
+                                 BackgroundColor="#EEEEEE"/>
+
+                        <!-- Поле Middlename -->
+                        <VerticalStackLayout Padding="20, 10" Spacing="5">
+                            <Label Text="Отчество" 
+                                   FontSize="14" 
+                                   TextColor="Gray"/>
+                            <Entry x:Name="middlenameEntry"
+                                   Placeholder="Введите отчество"
+                                   Text="{Binding Middlename}"
+                                   ClearButtonVisibility="WhileEditing"
+                                   TextColor="Gray"
+                                   FontSize="16"/>
+                        </VerticalStackLayout>
+
+                        <!-- Разделитель между полями -->
+                        <BoxView HeightRequest="1" 
+                                 BackgroundColor="#EEEEEE"/>
+
+                        <!-- Поле Пароль1 -->
+                        <VerticalStackLayout Padding="20, 10" Spacing="5">
+                            <Label Text="Пароль*" 
+                                   FontSize="14" 
+                                   TextColor="Gray"/>
+                            <Entry x:Name="passwordEntry1"
+                                   Placeholder="Введите ваш пароль"
+                                   Text="{Binding Password1}"
+                                   IsPassword="True"
+                                   ClearButtonVisibility="WhileEditing"
+                                   TextColor="Gray"
+                                   FontSize="16"/>
+                            <Label Text="Пароль минимум 3 символа"
+                               TextColor="Red"
+                               FontSize="12"
+                               IsVisible="{Binding IsValidPassword1, Converter={StaticResource InverseBoolConverter}}"/>
+                        </VerticalStackLayout>
+
+                        <!-- Разделитель между полями -->
+                        <BoxView HeightRequest="1" 
+                                 BackgroundColor="#EEEEEE"/>
+
+                        <!-- Поле Пароль2 -->
+                        <VerticalStackLayout Padding="20, 10" Spacing="5">
+                            <Label Text="Повторите пароль*" 
+                                   FontSize="14" 
+                                   TextColor="Gray"/>
+                            <Entry x:Name="passwordEntry2"
+                                   Placeholder="Ваш пароль"
+                                   Text="{Binding Password2}"
+                                   IsPassword="True"
+                                   ClearButtonVisibility="WhileEditing"
+                                   TextColor="Gray"
+                                   FontSize="16"/>
+                            <Label Text="Пароли не совпадают"
+                               TextColor="Red"
+                               FontSize="12"
+                               IsVisible="{Binding IsValidPassword2, Converter={StaticResource InverseBoolConverter}}"/>
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+
+            <!-- Кнопка входа и ссылка на регистрацию -->
+            <VerticalStackLayout Spacing="5" Grid.Row="2">
+
+                <!-- Кнопка Входа с Grid для индикатора -->
+                <Grid>
+                    <Button x:Name="RegisterButton"
+                            Text="РЕГИСТРАЦИЯ"
+                            IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                            CornerRadius="10"
+                            HeightRequest="52"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Command="{Binding RegisterCommand}">
+                        <Button.Triggers>
+                            <Trigger TargetType="Button"
+                                 Property="IsEnabled"
+                                 Value="True">
+                                <Setter Property="BackgroundColor" Value="#512BD4"/>
+                                <Setter Property="TextColor" Value="White"/>
+                            </Trigger>
+
+                            <Trigger TargetType="Button"
+                                 Property="IsEnabled"
+                                 Value="False">
+                                <Setter Property="BackgroundColor" Value="#AAAAAA"/>
+                                <Setter Property="TextColor" Value="#666666"/>
+                            </Trigger>
+                        </Button.Triggers>
+                    </Button>
+                    <!-- Индикатор загрузки -->
+                    <ActivityIndicator x:Name="activityIndicator"
+                                       IsVisible="{Binding IsBusy}"
+                                       IsRunning="{Binding IsBusy}"
+                                       Color="#512BD4"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       WidthRequest="30"
+                                       HeightRequest="30"
+                                       Margin="0,0,0,0"/>
+                </Grid>
+
+            </VerticalStackLayout>
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

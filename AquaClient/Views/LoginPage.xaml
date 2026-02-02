@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:AquaClient.ViewModels"
+             xmlns:converters="clr-namespace:AquaClient.Converters"
+             x:Class="AquaClient.Views.LoginPage">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto, *, Auto"
+              RowSpacing="40"
+              Padding="30, 60, 30, 30">
+
+            <!-- Заголовок приложения -->
+            <Label Text="МОЙ АКВАРИУМ"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#512BD4"
+                   Grid.Row="0"/>
+
+            <!-- Форма входа -->
+            <VerticalStackLayout Spacing="20" Grid.Row="1">
+
+                <!-- Контейнер для полей ввода с Border -->
+                <Border Stroke="#E0E0E0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12"
+                        BackgroundColor="White"
+                        Padding="0"
+                        
+                        >
+
+                    <VerticalStackLayout Spacing="0">
+
+                        <!-- Поле телефон -->
+                        <VerticalStackLayout Padding="20, 15" Spacing="5">
+                            <Label Text="Телефон" 
+                                   FontSize="14" 
+                                   TextColor="Gray"/>
+                            <Entry x:Name="phoneEntry"
+                                   Text="{Binding Phone}"
+                                   Placeholder="+79991234567"
+                                   Keyboard="Telephone"
+                                   ClearButtonVisibility="WhileEditing"
+                                   TextColor="Gray"
+                                   IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                                   FontSize="16"/>
+                        </VerticalStackLayout>
+
+                        <!-- Разделитель между полями -->
+                        <BoxView HeightRequest="1" 
+                                 BackgroundColor="#EEEEEE"/>
+
+                        <!-- Поле Пароль -->
+                        <VerticalStackLayout Padding="20, 15" Spacing="5">
+                            <Label Text="Пароль" 
+                                   FontSize="14" 
+                                   TextColor="Gray"/>
+                            <Entry x:Name="passwordEntry"
+                                   Placeholder="Введите ваш пароль"
+                                   Text="{Binding Password}"
+                                   IsPassword="True"
+                                   ClearButtonVisibility="WhileEditing"
+                                   TextColor="Gray"
+                                   IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                                   FontSize="16"/>
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <VerticalStackLayout>
+                    <HorizontalStackLayout Spacing="10">
+                        <CheckBox 
+                            IsChecked="{Binding RememberMe}"
+                            Color="#512BD4"/>
+                        <Label Text="Запомнить меня" 
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                    <!-- Простой текст вместо кнопки для настроек -->
+                    <Label Text="Настройки сетевого соединения"
+                       TextColor="#1080FF"
+                       HorizontalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NetworkSettingsCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+                <!-- Чекбокс "Запомнить меня" -->
+
+
+            </VerticalStackLayout>
+
+            <!-- Кнопка входа и ссылка на регистрацию -->
+            <VerticalStackLayout Spacing="5" Grid.Row="2">
+
+                <!-- Кнопка Входа с Grid для индикатора -->
+                <Grid>
+                    <Button x:Name="loginButton"
+                            Text="ВОЙТИ"
+                            IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                            CornerRadius="10"
+                            HeightRequest="52"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Command="{Binding LoginCommand}">
+                        <Button.Triggers>
+                            <Trigger TargetType="Button"
+                                 Property="IsEnabled"
+                                 Value="True">
+                                <Setter Property="BackgroundColor" Value="#512BD4"/>
+                                <Setter Property="TextColor" Value="White"/>
+                            </Trigger>
+
+                            <Trigger TargetType="Button"
+                                 Property="IsEnabled"
+                                 Value="False">
+                                <Setter Property="BackgroundColor" Value="#AAAAAA"/>
+                                <Setter Property="TextColor" Value="#666666"/>
+                            </Trigger>
+                        </Button.Triggers>
+                    </Button>
+                    <!-- Индикатор загрузки -->
+                    <ActivityIndicator x:Name="activityIndicator"
+                                       IsVisible="{Binding IsBusy}"
+                                       IsRunning="{Binding IsBusy}"
+                                       Color="#512BD4"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       WidthRequest="30"
+                                       HeightRequest="30"
+                                       Margin="0,0,0,0"/>
+                </Grid>
+
+                <!-- Ссылка на регистрацию -->
+                <Label Text="Нет аккаунта? Зарегистрируйтесь"
+                       TextColor="#512BD4"
+                       HorizontalOptions="Center">
+                </Label>
+                <!-- Простой текст вместо кнопки для регистрации -->
+                <Label Text="Создать аккаунт"
+                   TextColor="#1080FF"
+                   HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RegisterCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+            </VerticalStackLayout>
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

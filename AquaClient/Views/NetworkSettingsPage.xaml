@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AquaClient.Views.NetworkSettingsPage"
+             Title="Сетевое соединение">
+    <ScrollView>
+        <Grid RowDefinitions="Auto, *, Auto"
+              RowSpacing="40"
+              Padding="30, 60, 30, 30">
+
+            <!-- Заголовок приложения -->
+            <Label Text="Настройки сетевого соединения"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#512BD4"
+                   Grid.Row="0"/>
+
+            <!-- Форма входа -->
+            <VerticalStackLayout Spacing="20" Grid.Row="1">
+
+                <!-- Контейнер для полей ввода с Border -->
+                <Border Stroke="#E0E0E0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12"
+                        BackgroundColor="White"
+                        Padding="0">
+
+                        <!-- Поле URI -->
+                    <VerticalStackLayout Padding="20, 15" Spacing="5">
+                        <Label Text="URI точки входа в API сервиса" 
+                                   FontSize="14" 
+                                   TextColor="Gray"/>
+                        <Entry x:Name="uriApiEntry"
+                                   Text="{Binding UriApi}"
+                                   Placeholder="https://myaqua.org/api/v1/"
+                                   Keyboard="Default"
+                                   ClearButtonVisibility="WhileEditing"
+                                   TextColor="Gray"
+                                   FontSize="16"/>
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+
+            <!-- Кнопка входа и ссылка на регистрацию -->
+            <VerticalStackLayout Spacing="5" Grid.Row="2">
+
+                <!-- Кнопка Входа с Grid для индикатора -->
+                <Grid>
+                    <Button x:Name="loginButton"
+                            Text="СОХРАНИТЬ"
+                            IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                            CornerRadius="10"
+                            HeightRequest="52"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Command="{Binding SaveCommand}">
+                        <Button.Triggers>
+                            <Trigger TargetType="Button"
+                                 Property="IsEnabled"
+                                 Value="True">
+                                <Setter Property="BackgroundColor" Value="#512BD4"/>
+                                <Setter Property="TextColor" Value="White"/>
+                            </Trigger>
+
+                            <Trigger TargetType="Button"
+                                 Property="IsEnabled"
+                                 Value="False">
+                                <Setter Property="BackgroundColor" Value="#AAAAAA"/>
+                                <Setter Property="TextColor" Value="#666666"/>
+                            </Trigger>
+                        </Button.Triggers>
+                    </Button>
+                    <!-- Индикатор загрузки -->
+                    <ActivityIndicator x:Name="activityIndicator"
+                                       IsVisible="{Binding IsBusy}"
+                                       IsRunning="{Binding IsBusy}"
+                                       Color="#512BD4"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       WidthRequest="30"
+                                       HeightRequest="30"
+                                       Margin="0,0,0,0"/>
+                </Grid>
+            </VerticalStackLayout>
+
+        </Grid>
+    </ScrollView>
+</ContentPage>
