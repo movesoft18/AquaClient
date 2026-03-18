@@ -36,7 +36,7 @@ public partial class SplashPage : ContentPage
         }
         catch (Exception ex)
         {
-            DisplayAlert("Ошибка", $"{ex.Message}", "Закрыть");
+            await DisplayAlert("Ошибка", $"{ex.Message}", "Закрыть");
             Application.Current.Windows[0].Page = new NavigationPage(new LoginPage(_connection));
         }
     }

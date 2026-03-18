@@ -60,6 +60,7 @@ namespace AquaClient.ViewModels
                         );
                     }
                     await Application.Current.MainPage.DisplayAlert("Информация", "Вы успешно авторизовались в системе", "ОК");
+                    Application.Current.Windows[0].Page = new AppShell();
                     Application.Current.MainPage = new AppShell();
                 }
                 else

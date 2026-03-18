@@ -45,14 +45,20 @@ namespace AquaClient.ViewModels
                 var data = await _connection.GetDevicesInfo();
                 if (data == null || data.Error != 0)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Ошибка", $"{(data == null ? "Ошибка сервиса" : data.Message)}", "Закрыть");
+                    await MainThread.InvokeOnMainThreadAsync(async () =>
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Ошибка", $"{(data == null ? "Ошибка сервиса" : data.Message)}", "Закрыть");
+                    });
                     return;
                 }
                 DevicesList = new ObservableCollection<Classes.Responses.AquaDeviceInfo>(data.Data);
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Ошибка", ex.Message, "Закрыть");
+                await MainThread.InvokeOnMainThreadAsync(async () =>
+                {
+                    await Application.Current.MainPage.DisplayAlert("Ошибка", ex.Message, "Закрыть");
+                });
             }
             finally
             {
